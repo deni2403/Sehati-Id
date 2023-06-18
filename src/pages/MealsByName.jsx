@@ -7,6 +7,7 @@ import Footer from "../components/Footer";
 const MealsByName = () => {
   const { name } = useParams();
   const [mealsByName, setMealsByName] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const getMealsByName = async () => {
     try {
@@ -22,12 +23,30 @@ const MealsByName = () => {
   useEffect(() => {
     getMealsByName();
   }, []);
+
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const filteredMeals = mealsByName.filter((meal) =>
+    meal.strMeal.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <>
       <div className="bg__recipe"></div>
+      <div className="p-4">
+        <input
+          type="text"
+          placeholder="Search by name..."
+          value={searchTerm}
+          onChange={handleSearch}
+          className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
       <div className="grid grid-cols-1 gap-2 p-4 md:grid-cols-3 md:gap-3">
-        {mealsByName.map((item, index) => (
-          <CardMeal index={index + 1} data={item} />
+        {filteredMeals.map((item, index) => (
+          <CardMeal key={item.idMeal} index={index + 1} data={item} />
         ))}
       </div>
       <Footer />

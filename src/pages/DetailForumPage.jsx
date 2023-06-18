@@ -19,7 +19,7 @@ const DetailForumPage = () => {
   const getDataDiscussions = () => {
     const dbRef = ref(database, "discussions");
     onValue(dbRef, (snapshot) => {
-      let data = [];
+      const data = [];
       snapshot.forEach((childSnapshot) => {
         const key = childSnapshot.key;
         const value = childSnapshot.val();
@@ -39,7 +39,7 @@ const DetailForumPage = () => {
   const getComment = (filterIdDiscussion) => {
     const dbRef = ref(database, "comment-discussions");
     onValue(dbRef, (snapshot) => {
-      let data = [];
+      const data = [];
       snapshot.forEach((childSnapshot) => {
         const key = childSnapshot.key;
         const value = childSnapshot.val();
@@ -73,6 +73,8 @@ const DetailForumPage = () => {
         updatedAt: now,
         uuid,
       });
+
+      setComment(""); // Clear the comment input field
     } catch (error) {
       console.log(error);
     }
@@ -81,7 +83,7 @@ const DetailForumPage = () => {
   const getDataUser = (filterIdUser) => {
     const dbRef = ref(database, "users");
     onValue(dbRef, (snapshot) => {
-      let data = [];
+      const data = [];
       snapshot.forEach((childSnapshot) => {
         const key = childSnapshot.key;
         const value = childSnapshot.val();
@@ -121,17 +123,19 @@ const DetailForumPage = () => {
   };
 
   useEffect(() => {
-    checkUserLogin();
+    checkUserLogin().then((userId) => {
+      setIdUser(userId);
+      getDataUser(userId);
+    });
     getDataDiscussions();
-    getDataUser(idUser);
     getComment(id);
-  }, [id, idUser]);
+  }, [id]);
 
   return (
     <section className="p-4 lg:p-8">
       <h2 className="text-2xl font-bold">Forum</h2>
       {data && (
-        <div className="flex space-x-4 ">
+        <div className="flex space-x-4">
           <img src={data.photoURL} alt="" className="w-20 h-20 rounded-full" />
           <div>
             <h3 className="text-[#0E8CD3]">{data.displayName}</h3>
@@ -140,7 +144,8 @@ const DetailForumPage = () => {
         </div>
       )}
       <div>
-        {dataComment.map((item, index) => (
+        <p className="text-gray-500">Comments ({dataComment.length})</p>
+        {dataComment.map((item) => (
           <CardComment
             key={item.key}
             photoURL={item.value.photoURL}
@@ -158,6 +163,7 @@ const DetailForumPage = () => {
               id=""
               cols="30"
               rows="10"
+              value={comment}
               onChange={(e) => setComment(e.target.value)}
             ></textarea>
           </div>

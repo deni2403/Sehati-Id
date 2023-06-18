@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Logo from "../assets/logo.png";
 import { createUserDocument } from "../config/index";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 const auth = getAuth();
 
@@ -11,6 +12,7 @@ const RegisterPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [file, setFile] = useState(null);
+  let navigate = useNavigate("");
 
   const handleRegistration = async (e) => {
     e.preventDefault();
@@ -29,6 +31,7 @@ const RegisterPage = () => {
       });
 
       e.target.reset();
+      navigate("/");
     } catch (error) {
       console.log("Error in registration", error);
     }

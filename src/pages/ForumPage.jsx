@@ -8,6 +8,9 @@ import { ref, onValue } from "firebase/database";
 const ForumPage = () => {
   const [openModalDiscussion, setOpenModalDiscussion] = useState(false);
   const [data, setData] = useState([]);
+  const [commentsCount, setCommentsCount] = useState({});
+  const [selectedOption, setSelectedOption] = useState("");
+
   const getData = () => {
     const dbRef = ref(database, "discussions");
     onValue(dbRef, (snapshot) => {
@@ -22,13 +25,31 @@ const ForumPage = () => {
         });
       });
 
-      // Sort the data array by createdAt field in descending order
-      data.sort(
-        (a, b) => new Date(b.value.createdAt) - new Date(a.value.createdAt)
-      );
+      // Filter the data array based on the selected option
+      if (selectedOption !== "") {
+        data = data.filter((item) => item.value.topic === selectedOption);
+      }
 
-      console.log(data);
       setData(data);
+    });
+  };
+
+  const getCommentsCount = (discussionId) => {
+    const dbRef = ref(database, "comment-discussions");
+    onValue(dbRef, (snapshot) => {
+      let count = 0;
+      snapshot.forEach((childSnapshot) => {
+        let value = childSnapshot.val();
+
+        if (value.idDiscussion === discussionId) {
+          count++;
+        }
+      });
+
+      setCommentsCount((prevState) => ({
+        ...prevState,
+        [discussionId]: count,
+      }));
     });
   };
 
@@ -36,9 +57,20 @@ const ForumPage = () => {
     setOpenModalDiscussion(false);
   };
 
+  const handleChange = (event) => {
+    setSelectedOption(event.target.value);
+  };
+
   useEffect(() => {
     getData();
-  }, []);
+  }, [selectedOption]);
+
+  useEffect(() => {
+    data.forEach((item) => {
+      getCommentsCount(item.key);
+    });
+  }, [data]);
+
   return (
     <>
       <section className="p-4 lg:p-8">
@@ -53,6 +85,18 @@ const ForumPage = () => {
             </button>
             <div>
               <h3 className="p-4 font-semibold text-center">Topik Diskusi</h3>
+              <div className="w-full">
+                <select
+                  value={selectedOption}
+                  onChange={handleChange}
+                  className="w-full p-4 font-bold"
+                >
+                  <option value="">All</option>
+                  <option value="Gaya Hidup">Gaya Hidup</option>
+                  <option value="Diet">Diet</option>
+                  <option value="Olahraga">Olahraga</option>
+                </select>
+              </div>
             </div>
           </div>
           <div className="md:w-[70%]">
@@ -61,16 +105,14 @@ const ForumPage = () => {
             </h3>
             <div className="flex flex-col space-y-4">
               {data.map((item, index) => (
-                <>
-                  <CardDiscussion
-                    id={item.value.uuid}
-                    key={index + 1}
-                    name={item.value.displayName}
-                    question={item.value.title}
-                    img={item.value.photoURL}
-                    countComment="12"
-                  />{" "}
-                </>
+                <CardDiscussion
+                  id={item.value.uuid}
+                  key={index + 1}
+                  name={item.value.displayName}
+                  question={item.value.title}
+                  img={item.value.photoURL}
+                  countComment={commentsCount[item.key] || 0}
+                />
               ))}
             </div>
           </div>

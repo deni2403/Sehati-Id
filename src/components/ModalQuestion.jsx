@@ -4,56 +4,61 @@ import { set, ref, onValue } from "firebase/database";
 import { uid } from "uid";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../config/index";
+import ImagePlaceholder from "../assets/placeholder-image.png";
 
 const ModalQuestion = ({ openModal, setOpenModal }) => {
   const [topic, setTopic] = useState("Gaya Hidup");
   const [title, setTitle] = useState("");
   const [detailQuestion, setDetailQuestion] = useState("");
-  const [idUser, setIdUser] = useState("");
-  const [photoURL, setPhotoURL] = useState(null);
-  const [displayName, setDisplayName] = useState("");
+  const [userData, setUserData] = useState({
+    id: "",
+    photoURL: null,
+    displayName: "",
+  });
 
   const handleNewQuestion = (e) => {
     e.preventDefault();
-    const uuid = uid();
+    const questionId = uid();
     const now = new Date().toISOString();
 
     try {
-      set(ref(database, `/discussions/${uuid}`), {
+      const questionData = {
         topic,
         title,
         detailQuestion,
-        idUser,
-        displayName,
-        photoURL,
+        idUser: userData.id,
+        displayName: userData.displayName || "anonymous",
+        photoURL: userData.photoURL || ImagePlaceholder, // Provide a default value of null if photoURL is undefined
         createdAt: now,
         updatedAt: now,
-        uuid,
-      });
+        uuid: questionId,
+      };
+
+      set(ref(database, `/discussions/${questionId}`), questionData);
       setOpenModal(false);
+      setTitle("");
+      setDetailQuestion("");
     } catch (error) {
       console.log(error);
     }
   };
 
-  const getData = (filterIdUser) => {
-    const dbRef = ref(database, "users");
-    onValue(dbRef, (snapshot) => {
-      let data = [];
+  const getUserData = (userId) => {
+    const usersRef = ref(database, "users");
+    onValue(usersRef, (snapshot) => {
       snapshot.forEach((childSnapshot) => {
-        let key = childSnapshot.key;
-        let value = childSnapshot.val();
+        const key = childSnapshot.key;
+        const value = childSnapshot.val();
 
-        // Filter the data based on the provided idUser
-        if (key === filterIdUser) {
-          data.push({
-            key: key,
-            value: value,
+        if (key === userId) {
+          setUserData({
+            id: key,
+            photoURL: value.photoURL,
+            displayName: value.displayName,
           });
+          return; // Exit loop after finding the matching user
         }
       });
-
-      setDisplayName(data[0]?.value?.displayName || "Aini");
     });
   };
 
@@ -63,10 +68,13 @@ const ModalQuestion = ({ openModal, setOpenModal }) => {
         auth,
         (user) => {
           if (user) {
-            const userUUID = user.uid;
-            setPhotoURL(user.photoURL);
-            setIdUser(userUUID);
-            resolve(userUUID);
+            const { uid: userId, photoURL } = user;
+            setUserData((prevState) => ({
+              ...prevState,
+              id: userId,
+              photoURL: photoURL,
+            }));
+            resolve(userId);
           } else {
             resolve(null);
           }
@@ -80,8 +88,11 @@ const ModalQuestion = ({ openModal, setOpenModal }) => {
   };
 
   useEffect(() => {
-    checkUserLogin();
-    getData(idUser);
+    checkUserLogin().then((userId) => {
+      if (userId) {
+        getUserData(userId);
+      }
+    });
   }, []);
 
   return (
@@ -131,7 +142,7 @@ const ModalQuestion = ({ openModal, setOpenModal }) => {
                 >
                   <option value="Gaya Hidup">Gaya Hidup</option>
                   <option value="Diet">Diet</option>
-                  <option value="Olahrag">Olahraga</option>
+                  <option value="Olahraga">Olahraga</option>
                 </select>
               </div>
               <div className="flex flex-col space-y-2">
