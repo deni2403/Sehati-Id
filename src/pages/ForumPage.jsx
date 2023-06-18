@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ModalQuestion from "../components/ModalQuestion";
 import ImagePlaceholder from "../assets/placeholder-image.png";
+import CardDiscussion from "../components/CardDiscussion";
 import { database } from "../config";
 import { ref, onValue } from "firebase/database";
 
@@ -58,6 +59,20 @@ const ForumPage = () => {
             <h3 className="p-4 text-2xl border-b-[#00985B] border-b-2 ">
               Diskusi
             </h3>
+            <div className="flex flex-col space-y-4">
+              {data.map((item, index) => (
+                <>
+                  <CardDiscussion
+                    id={item.value.uuid}
+                    key={index + 1}
+                    name={item.value.displayName}
+                    question={item.value.title}
+                    img={item.value.photoURL}
+                    countComment="12"
+                  />{" "}
+                </>
+              ))}
+            </div>
           </div>
         </div>
       </section>

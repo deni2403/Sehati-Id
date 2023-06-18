@@ -5,6 +5,7 @@ import { onValue, ref, set } from "firebase/database";
 import { uid } from "uid";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../config/index";
+import CardComment from "../components/CardComment";
 
 const DetailForumPage = () => {
   const { id } = useParams();
@@ -138,6 +139,16 @@ const DetailForumPage = () => {
           </div>
         </div>
       )}
+      <div>
+        {dataComment.map((item, index) => (
+          <CardComment
+            key={item.key}
+            photoURL={item.value.photoURL}
+            name={item.value.displayName}
+            comment={item.value.comment}
+          />
+        ))}
+      </div>
       <div>
         <form onSubmit={handleNewComment}>
           <div className="flex flex-col">
