@@ -5,6 +5,7 @@ import Logo from "../assets/logo.png";
 import PlaceHolder from "../assets/placeholder-image.png";
 import { auth } from "../config/index";
 import { onAuthStateChanged } from "firebase/auth";
+import { ProfileLogout } from "./ProfileLogout";
 
 const Header = () => {
   const [isOpen, setOpen] = useState(false);
@@ -12,9 +13,33 @@ const Header = () => {
   const [photoURL, setPhotoURL] = useState(null);
   const [openProfileLogout, setOpenProfileLogout] = useState(false);
 
-
+  const checkUserLogin = () => {
+    return new Promise((resolve, reject) => {
+      onAuthStateChanged(
+        auth,
+        (user) => {
+          if (user) {
+            // User is logged in
+            setIsLogin(true);
+            setPhotoURL(user.photoURL);
+            resolve(user);
+          } else {
+            // User is not logged in
+            setIsLogin(false);
+            setPhotoURL(null);
+            resolve(null);
+          }
+        },
+        (error) => {
+          console.log("Error checking user login:", error);
+          reject(error);
+        }
+      );
+    });
+  };
 
   useEffect(() => {
+    checkUserLogin();
   }, []);
   return (
     <header className="bg-gradient-to-r from-green-800 to-[#1B1E23]  sticky top-0 left-0 w-full flex items-center z-50">
@@ -125,7 +150,7 @@ const Header = () => {
                 } absolute w-64 top-16`}
               >
                 <li className="group">
-                  {/* <ProfileLogout /> */}
+                  <ProfileLogout />
                 </li>
               </ul>
             ) : null}
