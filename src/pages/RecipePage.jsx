@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Example from "../assets/example.png";
+import CardCategory from "../components/CardCategory";
 import Footer from "../components/Footer";
 
 const RecipePage = () => {
@@ -25,6 +26,11 @@ const RecipePage = () => {
   return (
     <>
       <div className="bg__recipe"></div>
+      <div className="grid grid-cols-1 gap-2 p-4 md:grid-cols-3 md:gap-3">
+        {allCategories.map((item, index) => (
+          <CardCategory index={index + 1} data={item} />
+        ))}
+      </div>
       <Footer />
     </>
   );
