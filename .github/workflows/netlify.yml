@@ -22,6 +22,6 @@ jobs:
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v1
         with:
-          publish-dir: ./build
+          publish-dir: build/
           deploy-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           flags: --prod
