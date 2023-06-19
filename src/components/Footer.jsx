@@ -7,12 +7,12 @@ import Twitter from "../assets/twitter.png";
 
 const Footer = () => {
   return (
-    <footer className="bg__footer text-white px-6 py-10">
-      <div className="grid grid-cols-3 place-content-center gap-y-6">
-        <div>
+    <footer className="bg__footer bg-cover text-white px-6 py-10">
+      <div className="grid grid-cols-1 md:grid-cols-3 place-content-center md:gap-y-6">
+        <div className="flex justify-center items-center md:justify-start">
           <img src={Logo} alt="" className="w-20" />
         </div>
-        <div>
+        <div className="text-center md:text-left mt-4 md:mt-0">
           <h6 className="font-bold text-lg">Sehati.id</h6>
           <ul className="flex flex-col space-y-2 mt-4">
             <li>About Us</li>
@@ -20,7 +20,7 @@ const Footer = () => {
             <li>Our Teams</li>
           </ul>
         </div>
-        <div>
+        <div className="text-center md:text-left mt-4 md:mt-0">
           <h6 className="font-bold text-lg">Social Media</h6>
           <ul className="flex-col space-y-2 mt-4 grid grid-cols-2 place-content-center place-items-center">
             <li>

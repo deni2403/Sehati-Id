@@ -40,72 +40,60 @@ const Calculator = () => {
     }
   };
 
-  //   Berikut adalah kategori BMI menurut WHO:
-
-  // Kurus: BMI di bawah 18,5
-  // Normal: BMI antara 18,5 dan 24,9
-  // Kelebihan berat badan: BMI antara 25 dan 29,9
-  // Obesitas: BMI antara 30 dan 34,9 (obesitas tingkat I), BMI antara 35 dan 39,9 (obesitas tingkat II), BMI 40 atau lebih (obesitas tingkat III atau obesitas ekstrem)
   return (
-    <>
-      <section className="bg-[#F3FFF4] p-4">
-        <h2 className="text-[#1C9509] font-bold text-center text-2xl">
-          KALKULATOR INDEKS MASSA TUBUH
-        </h2>
-        <form className="flex flex-col p-4 space-y-4 bg-white">
-          <div>
-            <label
-              htmlFor=""
-              className="font-semibold"
-              onChange={(e) => setGender(e.target.value)}
-            >
-              Jenis Kelamin
-            </label>
-            <select name="" id="" className="w-full p-2 mt-2 shadow">
-              <option value="Laki-laki">Laki-laki</option>
-              <option value="Perempuan">Perempuan</option>
-            </select>
-          </div>
-          <div>
-            <label htmlFor="" className="font-semibold">
-              Tinggi Badan (cm)
-            </label>
-            <div>
-              <input
-                type="number"
-                value={height}
-                onChange={handleHeightChange}
-                className="w-full p-2 mt-2 shadow"
-              />
-            </div>
-          </div>
-          <div>
-            <label htmlFor="" className="font-semibold">
-              Berat Badan (kg)
-            </label>
-            <div>
-              <input
-                type="number"
-                value={weight}
-                onChange={handleWeightChange}
-                className="w-full p-2 mt-2 shadow"
-              />
-            </div>
-          </div>
-          <div>
-            <button
-              type="button"
-              onClick={calculateBMI}
-              className="mt-4 bg-[#1C9509] text-white p-2 w-full"
-            >
-              Hitung
-            </button>
-          </div>
-          {bmi && <p>BMI: {bmi}</p>}
-          {bmi && <p>Kategori: {category}</p>}
-        </form>
-      </section>
-    </>
+    <section className="bg-[#F3FFF4] p-4">
+      <h2 className="text-[#1C9509] font-bold text-center text-2xl">
+        KALKULATOR INDEKS MASSA TUBUH
+      </h2>
+      <form className="flex flex-col p-4 space-y-4 bg-white max-w-[640px] mx-auto">
+        <div className="flex flex-col">
+          <label htmlFor="" className="font-semibold">
+            Jenis Kelamin
+          </label>
+          <select
+            className="w-full p-2 mt-2 shadow"
+            value={gender}
+            onChange={(e) => setGender(e.target.value)}
+          >
+            <option value="Laki-laki">Laki-laki</option>
+            <option value="Perempuan">Perempuan</option>
+          </select>
+        </div>
+        <div className="flex flex-col">
+          <label htmlFor="" className="font-semibold">
+            Tinggi Badan (cm)
+          </label>
+          <input
+            type="number"
+            value={height}
+            onChange={handleHeightChange}
+            className="w-full p-2 mt-2 shadow"
+          />
+        </div>
+        <div className="flex flex-col">
+          <label htmlFor="" className="font-semibold">
+            Berat Badan (kg)
+          </label>
+          <input
+            type="number"
+            value={weight}
+            onChange={handleWeightChange}
+            className="w-full p-2 mt-2 shadow"
+          />
+        </div>
+        <div>
+          <button
+            type="button"
+            onClick={calculateBMI}
+            className="mt-4 bg-[#1C9509] text-white p-2 w-full"
+          >
+            Hitung
+          </button>
+        </div>
+        {bmi && <p className="text-center">BMI: {bmi}</p>}
+        {bmi && <p className="text-center">Kategori: {category}</p>}
+      </form>
+    </section>
   );
 };
 

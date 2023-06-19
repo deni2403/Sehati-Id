@@ -3,23 +3,20 @@ import { Link } from "react-router-dom";
 
 const CardCategory = ({ index, data }) => {
   return (
-    <>
-      <div
-        key={index + 1}
-        className="flex flex-col items-center justify-center w-full p-3 space-y-2 rounded-lg shadow"
-      >
-        <img src={data.strCategoryThumb} alt="" className="w-72" />
-        <Link
-          to={`/meals/${data.strCategory}`}
-          className="text-2xl font-bold text-center"
-        >
-          {data.strCategory}
-        </Link>
-        <p className="px-6 pb-6 text-justify">
-          {data.strCategoryDescription?.slice(0, 200)}...
-        </p>
+    <div className="max-w-xs mx-auto my-4">
+      <div className="bg-white rounded-lg shadow-lg">
+        <img src={data.strCategoryThumb} alt="" className="w-full h-56 object-cover rounded-t-lg" />
+        <div className="p-4">
+          <Link
+            to={`/meals/${data.strCategory}`}
+            className="block mb-2 text-2xl font-bold text-center text-gray-900 hover:text-blue-500"
+          >
+            {data.strCategory}
+          </Link>
+          <p className="text-sm text-gray-700">{data.strCategoryDescription?.slice(0, 200)}...</p>
+        </div>
       </div>
-    </>
+    </div>
   );
 };
 

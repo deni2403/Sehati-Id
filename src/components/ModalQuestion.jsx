@@ -28,7 +28,7 @@ const ModalQuestion = ({ openModal, setOpenModal }) => {
         detailQuestion,
         idUser: userData.id,
         displayName: userData.displayName || "anonymous",
-        photoURL: userData.photoURL || ImagePlaceholder, // Provide a default value of null if photoURL is undefined
+        photoURL: userData.photoURL || ImagePlaceholder,
         createdAt: now,
         updatedAt: now,
         uuid: questionId,
@@ -56,7 +56,7 @@ const ModalQuestion = ({ openModal, setOpenModal }) => {
             photoURL: value.photoURL,
             displayName: value.displayName,
           });
-          return; // Exit loop after finding the matching user
+          return;
         }
       });
     });
@@ -136,7 +136,7 @@ const ModalQuestion = ({ openModal, setOpenModal }) => {
                 <select
                   name="topic"
                   id="topic"
-                  className="p-2 border-2 border-gray-300 rounded-md"
+                  className="p-2 border border-gray-300 rounded-md"
                   value={topic}
                   onChange={(e) => setTopic(e.target.value)}
                 >
@@ -153,7 +153,7 @@ const ModalQuestion = ({ openModal, setOpenModal }) => {
                   type="text"
                   name="title"
                   id="title"
-                  className="p-2 border-2 border-gray-300 rounded-md"
+                  className="p-2 border border-gray-300 rounded-md"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                 />
@@ -170,7 +170,7 @@ const ModalQuestion = ({ openModal, setOpenModal }) => {
                   id="detailQuestion"
                   cols="30"
                   rows="10"
-                  className="p-2 border-2 border-gray-300 rounded-md"
+                  className="p-2 border border-gray-300 rounded-md"
                   value={detailQuestion}
                   onChange={(e) => setDetailQuestion(e.target.value)}
                 ></textarea>

@@ -17,11 +17,7 @@ const RegisterPage = () => {
   const handleRegistration = async (e) => {
     e.preventDefault();
     try {
-      const { user } = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
+      const { user } = await createUserWithEmailAndPassword(auth, email, password);
 
       await createUserDocument(user, {
         displayName: fullName,
@@ -36,6 +32,7 @@ const RegisterPage = () => {
       console.log("Error in registration", error);
     }
   };
+
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
     setFile(selectedFile);
@@ -45,9 +42,7 @@ const RegisterPage = () => {
     <div>
       <section className="bg-gradient-to-r from-[#0C8C59] to-[#F3FFF4] p-10 grid grid-cols-2">
         <div>
-          <h1 className="text-4xl font-bold text-white">
-            Create a New Account
-          </h1>
+          <h1 className="text-4xl font-bold text-white">Create a New Account</h1>
           <h3 className="text-2xl font-light text-white">
             Already Registered?{" "}
             <Link to="/login" className="font-bold">
@@ -60,16 +55,9 @@ const RegisterPage = () => {
           <div className="bg__blur" />
           <div className="h-full p-12 bg-black bg__container__auth rounded-xl">
             <form onSubmit={handleRegistration}>
-              <h2 className="text-3xl font-bold text-center text-white">
-                Sign Up
-              </h2>
+              <h2 className="text-3xl font-bold text-center text-white">Sign Up</h2>
               <div className="flex flex-col mt-4 space-y-2">
-                <label
-                  htmlFor="fullName"
-                  className="text-sm font-light text-white"
-                >
-                  Nama Lengkap
-                </label>
+                <label htmlFor="fullName" className="text-sm font-light text-white">Nama Lengkap</label>
                 <input
                   type="text"
                   name="displayName"
@@ -80,12 +68,7 @@ const RegisterPage = () => {
                 />
               </div>
               <div className="flex flex-col mt-4 space-y-2">
-                <label
-                  htmlFor="email"
-                  className="text-sm font-light text-white"
-                >
-                  Email
-                </label>
+                <label htmlFor="email" className="text-sm font-light text-white">Email</label>
                 <input
                   type="email"
                   name="email"
@@ -96,12 +79,7 @@ const RegisterPage = () => {
                 />
               </div>
               <div className="flex flex-col mt-4 space-y-2">
-                <label
-                  htmlFor="password"
-                  className="text-sm font-light text-white"
-                >
-                  Kata Sandi
-                </label>
+                <label htmlFor="password" className="text-sm font-light text-white">Kata Sandi</label>
                 <input
                   type="password"
                   name="password"
@@ -112,12 +90,7 @@ const RegisterPage = () => {
                 />
               </div>
               <div className="flex flex-col mt-4 space-y-2">
-                <label
-                  htmlFor="photo"
-                  className="text-sm font-light text-white"
-                >
-                  Foto Profil
-                </label>
+                <label htmlFor="photo" className="text-sm font-light text-white">Foto Profil</label>
                 <input
                   type="file"
                   name="photo"
@@ -126,9 +99,7 @@ const RegisterPage = () => {
                   className="py-2 px-4 rounded-3xl bg-[#D9D9D9B8] text-white font-light"
                 />
               </div>
-              <button className="bg-[#00985B] py-3 text-white mt-6 w-full rounded-3xl">
-                Daftar
-              </button>
+              <button className="bg-[#00985B] py-3 text-white mt-6 w-full rounded-3xl">Daftar</button>
             </form>
           </div>
         </div>

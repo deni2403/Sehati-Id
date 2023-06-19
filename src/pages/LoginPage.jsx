@@ -56,10 +56,10 @@ const LoginPage = () => {
           <div className="bg__blur" />
           <div className="h-full p-12 bg-black bg__container__auth rounded-xl">
             <form onSubmit={handleLogin}>
-              <h2 className="text-3xl font-bold text-center text-white">
+              <h2 className="text-3xl font-bold text-center text-white mb-6">
                 Sign In
               </h2>
-              <div className="flex flex-col mt-4 space-y-2">
+              <div className="flex flex-col space-y-2">
                 <label
                   htmlFor="email"
                   className="text-sm font-light text-white"
@@ -91,7 +91,8 @@ const LoginPage = () => {
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
-              <button className="bg-[#00985B] py-3 text-white mt-6 w-full rounded-3xl">
+              {error && <p className="text-red-500 mt-4">{error}</p>}
+              <button className="bg-[#00985B] py-3 text-white mt-6 w-full rounded-3xl hover:bg-green-600">
                 Login
               </button>
             </form>

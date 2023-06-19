@@ -34,28 +34,30 @@ const DetailArticle = () => {
   useEffect(() => {
     getData();
   }, []);
+
   return (
     <>
-      <section className="p-4 bg-[#F3FFF4]">
-        <div className="flex flex-col w-full mx-auto space-y-4 md:w-96 lg:w-[450px]">
+      <section className="p-4 flex flex-col items-center justify-center min-h-screen bg-[#F3FFF4]">
+        <div className="w-full max-w-3xl bg-white rounded-lg shadow-md">
           <img
             src={data.articleUrlImg}
             alt=""
-            className="w-full mx-auto rounded-md h-72"
+            className="w-full h-64 object-cover rounded-t-lg"
           />
-          <h3 className="font-bold">{data.articleTitle}</h3>
-          <p className="font-medium text-justify text-gray-600">
-            {data.articleDescription}
-          </p>
-          <a
-            target="blank"
-            href={data.articleSource}
-            className="text-blue-600 underline cursor-pointer"
-          >
-            {" "}
-            <span className="text-black no-underline">Sumber: </span>
-            {data.articleSource}
-          </a>
+          <div className="p-6">
+            <h3 className="text-xl md:text-2xl font-bold text-[#1C9509] mb-4">
+              {data.articleTitle}
+            </h3>
+            <p className="text-gray-800 text-justify">{data.articleDescription}</p>
+            <a
+              href={data.articleSource}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600 underline mt-4"
+            >
+              Sumber: {data.articleSource}
+            </a>
+          </div>
         </div>
       </section>
       <Footer />

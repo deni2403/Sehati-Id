@@ -6,6 +6,7 @@ import { uid } from "uid";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../config/index";
 import CardComment from "../components/CardComment";
+import Footer from "../components/Footer";
 
 const DetailForumPage = () => {
   const { id } = useParams();
@@ -132,47 +133,62 @@ const DetailForumPage = () => {
   }, [id]);
 
   return (
-    <section className="p-4 lg:p-8">
-      <h2 className="text-2xl font-bold">Forum</h2>
-      {data && (
-        <div className="flex space-x-4">
-          <img src={data.photoURL} alt="" className="w-20 h-20 rounded-full" />
-          <div>
-            <h3 className="text-[#0E8CD3]">{data.displayName}</h3>
-            <p className="font-semibold text-justify">{data.title}</p>
+    <>
+      <section className="p-4 lg:p-8">
+        <h2 className="text-2xl font-bold mb-4">Forum</h2>
+        {data && (
+          <div className="flex space-x-4 items-center mb-4">
+            <img
+              src={data.photoURL}
+              alt=""
+              className="w-20 h-20 rounded-full"
+            />
+            <div>
+              <h3 className="text-[#0E8CD3] text-xl font-bold">
+                {data.displayName}
+              </h3>
+              <p className="font-semibold text-justify">{data.title}</p>
+            </div>
           </div>
+        )}
+        <div>
+          <p className="text-gray-500">Comments ({dataComment.length})</p>
+          {dataComment.map((item) => (
+            <CardComment
+              key={item.key}
+              photoURL={item.value.photoURL}
+              name={item.value.displayName}
+              comment={item.value.comment}
+            />
+          ))}
         </div>
-      )}
-      <div>
-        <p className="text-gray-500">Comments ({dataComment.length})</p>
-        {dataComment.map((item) => (
-          <CardComment
-            key={item.key}
-            photoURL={item.value.photoURL}
-            name={item.value.displayName}
-            comment={item.value.comment}
-          />
-        ))}
-      </div>
-      <div>
-        <form onSubmit={handleNewComment}>
-          <div className="flex flex-col">
-            <label htmlFor="">Beri Komentar</label>
-            <textarea
-              name=""
-              id=""
-              cols="30"
-              rows="10"
-              value={comment}
-              onChange={(e) => setComment(e.target.value)}
-            ></textarea>
-          </div>
-          <button type="submit" className="w-full p-2 mt-2 bg-white">
-            Kirim
-          </button>
-        </form>
-      </div>
-    </section>
+        <div>
+          <form onSubmit={handleNewComment}>
+            <div className="flex flex-col mb-4">
+              <label htmlFor="comment" className="font-bold">
+                Beri Komentar
+              </label>
+              <textarea
+                name="comment"
+                id="comment"
+                cols="20"
+                rows="3"
+                className="p-2 border rounded resize-none"
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+              ></textarea>
+            </div>
+            <button
+              type="submit"
+              className="px-4 py-2 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600"
+            >
+              Kirim
+            </button>
+          </form>
+        </div>
+      </section>
+      <Footer />
+    </>
   );
 };
 

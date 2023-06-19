@@ -33,24 +33,23 @@ const MealsByName = () => {
   );
 
   return (
-    <>
-      <div className="bg__recipe"></div>
-      <div className="p-4">
+    <div className="bg-gray-100 min-h-screen">
+      <div className="container mx-auto py-8">
         <input
           type="text"
           placeholder="Search by name..."
           value={searchTerm}
           onChange={handleSearch}
-          className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-full md:w-1/2 lg:w-2/5 xl:w-1/4 mx-auto"
         />
       </div>
-      <div className="grid grid-cols-1 gap-2 p-4 md:grid-cols-3 md:gap-3">
+      <div className="container mx-auto grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
         {filteredMeals.map((item, index) => (
           <CardMeal key={item.idMeal} index={index + 1} data={item} />
         ))}
       </div>
       <Footer />
-    </>
+    </div>
   );
 };
 

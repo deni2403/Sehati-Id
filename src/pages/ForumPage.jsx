@@ -4,6 +4,7 @@ import ImagePlaceholder from "../assets/placeholder-image.png";
 import CardDiscussion from "../components/CardDiscussion";
 import { database } from "../config";
 import { ref, onValue } from "firebase/database";
+import Footer from "../components/Footer";
 
 const ForumPage = () => {
   const [openModalDiscussion, setOpenModalDiscussion] = useState(false);
@@ -74,22 +75,22 @@ const ForumPage = () => {
   return (
     <>
       <section className="p-4 lg:p-8">
-        <h2 className="text-2xl font-bold">Forum</h2>
-        <div className="flex flex-col mt-4 md:flex-row md:space-x-8">
-          <div className="flex flex-col md:w-[30%]">
+        <h2 className="text-3xl font-bold mb-6">Forum</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="md:col-span-1">
             <button
               onClick={() => setOpenModalDiscussion(true)}
-              className="bg-[#00985B] text-white p-4 font-semibold"
+              className="bg-[#00985B] text-white px-6 py-3 rounded-full font-semibold mb-6 hover:bg-[#008249] transition-colors"
             >
               Mulai Diskusi
             </button>
-            <div>
-              <h3 className="p-4 font-semibold text-center">Topik Diskusi</h3>
-              <div className="w-full">
+            <div className="bg-white rounded-lg p-4 shadow-md mb-6">
+              <h3 className="text-xl font-semibold mb-4">Filter Diskusi</h3>
+              <div>
                 <select
                   value={selectedOption}
                   onChange={handleChange}
-                  className="w-full p-4 font-bold"
+                  className="w-full p-3 bg-gray-100 rounded-md shadow-sm"
                 >
                   <option value="">All</option>
                   <option value="Gaya Hidup">Gaya Hidup</option>
@@ -99,22 +100,24 @@ const ForumPage = () => {
               </div>
             </div>
           </div>
-          <div className="md:w-[70%]">
-            <h3 className="p-4 text-2xl border-b-[#00985B] border-b-2 ">
-              Diskusi
-            </h3>
-            <div className="flex flex-col space-y-4">
-              {data.map((item, index) => (
-                <CardDiscussion
-                  id={item.value.uuid}
-                  key={index + 1}
-                  name={item.value.displayName}
-                  question={item.value.title}
-                  img={item.value.photoURL}
-                  countComment={commentsCount[item.key] || 0}
-                />
-              ))}
-            </div>
+          <div className="md:col-span-2 space-y-6">
+            <h3 className="text-2xl font-semibold mb-6">Diskusi Terbaru</h3>
+            {data.length === 0 ? (
+              <p className="text-gray-600">Tidak ada diskusi yang tersedia.</p>
+            ) : (
+              <div className="grid grid-cols-1 gap-6">
+                {data.map((item, index) => (
+                  <CardDiscussion
+                    id={item.value.uuid}
+                    key={index + 1}
+                    name={item.value.displayName}
+                    question={item.value.title}
+                    img={item.value.photoURL || ImagePlaceholder}
+                    countComment={commentsCount[item.key] || 0}
+                  />
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </section>
@@ -122,6 +125,7 @@ const ForumPage = () => {
         openModal={openModalDiscussion}
         setOpenModal={closeModal}
       />
+      <Footer />
     </>
   );
 };

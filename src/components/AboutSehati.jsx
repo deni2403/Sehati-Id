@@ -6,12 +6,12 @@ const AboutSehati = () => {
     <>
       <section className="bg-[#F3FFF4] p-10">
         <div className="flex flex-col md:flex-row items-center justify-center">
-          <div className="flex flex-col space-y-4">
+          <div className="flex flex-col md:w-1/2 space-y-4">
             <div>
-              <h1 className="text-4xl md:text-2xl xl:text-4xl font-bold text-[#1C9509]">
+              <h1 className="text-4xl md:text-2xl xl:text-4xl font-bold text-[#1C9509] text-center md:text-left">
                 About Sehati.id
               </h1>
-              <p className="text-black xl:mt-10 text-justify mt-6">
+              <p className="text-black text-justify mt-6">
                 Kami hadir untuk memberikan solusi yang tepat bagi Anda dalam
                 mengelola status gizi dan mencapai gaya hidup sehat. Dengan
                 dukungan ahli gizi terbaik di Indonesia, kami menyediakan
@@ -26,8 +26,8 @@ const AboutSehati = () => {
               </p>
             </div>
           </div>
-          <div>
-            <img src={GreenLogo} alt="" />
+          <div className="flex justify-center md:w-1/2">
+            <img src={GreenLogo} alt="" className="w-64" />
           </div>
         </div>
       </section>
