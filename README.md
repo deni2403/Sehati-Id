@@ -1,3 +1,14 @@
+# Capstone Project Team C23-R4100
+## Theme : Kesejahteraan Penduduk
+## Title : Sehati.Id (Kesehatan dan Gizi)
+## Our Teams 
+
+1. F039XB287 - Deni
+2. F078XB419 - Maulana Nadzif Adnan 
+3. F135YB324 - Aini Nurpadilah 
+4. F034XB112 - Hafizh Muhammad Azhar
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
