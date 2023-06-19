@@ -148,6 +148,7 @@ const DetailForumPage = () => {
                 {data.displayName}
               </h3>
               <p className="font-semibold text-justify">{data.title}</p>
+              <p className="text-justify">{data.detailQuestion}</p>
             </div>
           </div>
         )}
@@ -165,7 +166,7 @@ const DetailForumPage = () => {
         <div>
           <form onSubmit={handleNewComment}>
             <div className="flex flex-col mb-4">
-              <label htmlFor="comment" className="font-bold">
+              <label htmlFor="comment" className="font-bold p-4">
                 Beri Komentar
               </label>
               <textarea

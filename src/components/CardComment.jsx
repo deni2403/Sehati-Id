@@ -6,8 +6,8 @@ const CardComment = ({ photoURL, name, comment }) => {
       <div className="flex">
         <img src={photoURL} alt="" className="w-16 h-16 rounded-full" />
         <div>
-          <h5>{name}</h5>
-          <p>{comment}</p>
+          <h5 className="font-semibold text-base px-4">{name}</h5>
+          <p className="text-base py-2 px-4">{comment}</p>
         </div>
       </div>
     </div>

@@ -45,54 +45,55 @@ const Calculator = () => {
       <h2 className="text-[#1C9509] font-bold text-center text-2xl">
         KALKULATOR INDEKS MASSA TUBUH
       </h2>
-      <form className="flex flex-col p-4 space-y-4 bg-white max-w-[640px] mx-auto">
-        <div className="flex flex-col">
-          <label htmlFor="" className="font-semibold">
-            Jenis Kelamin
-          </label>
-          <select
-            className="w-full p-2 mt-2 shadow"
-            value={gender}
-            onChange={(e) => setGender(e.target.value)}
-          >
-            <option value="Laki-laki">Laki-laki</option>
-            <option value="Perempuan">Perempuan</option>
-          </select>
-        </div>
-        <div className="flex flex-col">
-          <label htmlFor="" className="font-semibold">
-            Tinggi Badan (cm)
-          </label>
-          <input
-            type="number"
-            value={height}
-            onChange={handleHeightChange}
-            className="w-full p-2 mt-2 shadow"
-          />
-        </div>
-        <div className="flex flex-col">
-          <label htmlFor="" className="font-semibold">
-            Berat Badan (kg)
-          </label>
-          <input
-            type="number"
-            value={weight}
-            onChange={handleWeightChange}
-            className="w-full p-2 mt-2 shadow"
-          />
-        </div>
-        <div>
-          <button
-            type="button"
-            onClick={calculateBMI}
-            className="mt-4 bg-[#1C9509] text-white p-2 w-full"
-          >
-            Hitung
-          </button>
-        </div>
-        {bmi && <p className="text-center">BMI: {bmi}</p>}
-        {bmi && <p className="text-center">Kategori: {category}</p>}
-      </form>
+      <form className="flex flex-col p-4 space-y-4 bg-white max-w-[640px] mx-auto border border-black">
+  <div className="flex flex-col">
+    <label htmlFor="" className="font-semibold">
+      Jenis Kelamin
+    </label>
+    <select
+      className="w-full p-2 mt-2 shadow outline-none"
+      value={gender}
+      onChange={(e) => setGender(e.target.value)}
+    >
+      <option value="Laki-laki">Laki-laki</option>
+      <option value="Perempuan">Perempuan</option>
+    </select>
+  </div>
+  <div className="flex flex-col">
+    <label htmlFor="" className="font-semibold">
+      Tinggi Badan (cm)
+    </label>
+    <input
+      type="number"
+      value={height}
+      onChange={handleHeightChange}
+      className="w-full p-2 mt-2 shadow outline-none"
+    />
+  </div>
+  <div className="flex flex-col">
+    <label htmlFor="" className="font-semibold">
+      Berat Badan (kg)
+    </label>
+    <input
+      type="number"
+      value={weight}
+      onChange={handleWeightChange}
+      className="w-full p-2 mt-2 shadow outline-none"
+    />
+  </div>
+  <div>
+    <button
+      type="button"
+      onClick={calculateBMI}
+      className="mt-4 bg-[#1C9509] text-white p-2 w-full"
+    >
+      Hitung
+    </button>
+  </div>
+  {bmi && <p className="text-center">BMI: {bmi}</p>}
+  {bmi && <p className="text-center">Kategori: {category}</p>}
+</form>
+
     </section>
   );
 };

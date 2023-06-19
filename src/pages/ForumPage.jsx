@@ -112,7 +112,7 @@ const ForumPage = () => {
                     key={index + 1}
                     name={item.value.displayName}
                     question={item.value.title}
-                    img={item.value.photoURL || ImagePlaceholder}
+                    photoURL={item.value.photoURL || ImagePlaceholder}
                     countComment={commentsCount[item.key] || 0}
                   />
                 ))}
